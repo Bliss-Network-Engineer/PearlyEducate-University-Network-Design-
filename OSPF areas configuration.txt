@@ -1,0 +1,148 @@
+active switch 1
+router ospf 1
+network 172.168.160.0 0.0.15.255 area 0
+network 172.168.128.0 0.0.31.255 area 0
+network 172.168.0.0 0.0.31.255 area 0
+network 172.168.184.32 0.0.0.31 area 0
+network 172.168.182.32 0.0.0.31 area 0
+network 20.0.0.0 0.0.0.3 area 0
+network 20.0.0.4 0.0.0.3 area 0
+network 30.0.0.0 0.0.0.3 area 0
+network 30.0.0.4 0.0.0.3 area 0
+
+
+
+standby switch 1
+router ospf 1
+network 172.168.160.0 0.0.15.255 area 0
+network 172.168.128.0 0.0.31.255 area 0
+network 172.168.0.0 0.0.31.255 area 0
+network 172.168.184.32 0.0.0.31 area 0
+network 172.168.182.32 0.0.0.31 area 0
+network 30.0.0.8 0.0.0.3 area 0
+network 30.0.0.12 0.0.0.3 area 0
+network 20.0.0.8 0.0.0.3 area 0
+network 20.0.0.12 0.0.0.3 area 0
+
+
+
+
+admin block active switch 2
+router ospf 1
+network 172.168.182.0 0.0.0.31 area 0
+network 172.168.183.0 0.0.0.127 area 0
+network 172.168.180.0 0.0.1.255 area 0
+network 172.168.185.0 0.0.0.127 area 0
+network 40.0.0.0 0.0.0.3 area 0
+network 40.0.0.4 0.0.0.3 area 0
+network 30.0.0.12 0.0.0.3 area 0
+network 30.0.0.4 0.0.0.3 area 0
+network 172.168.184.128 0.0.0.127 area 0
+network 172.168.185.128 0.0.0.127 area 0
+network 172.168.184.64 0.0.0.31 area 0
+network 172.168.40.0 0.0.1.255 area 0
+
+
+admin block standby switch 2
+router ospf 1
+network 172.168.182.0 0.0.0.31 area 0
+network 172.168.183.0 0.0.0.127 area 0
+network 172.168.180.0 0.0.1.255 area 0
+network 172.168.185.0 0.0.0.127 area 0
+network 30.0.0.0 0.0.0.3 area 0
+network 30.0.0.8 0.0.0.3 area 0
+network 40.0.0.8 0.0.0.3 area 0
+network 40.0.0.12 0.0.0.3 area 0
+network 172.168.184.128 0.0.0.127 area 0
+network 172.168.185.128 0.0.0.127 area 0
+network 172.168.184.64 0.0.0.31 area 0
+network 172.168.40.0 0.0.1.255 area 0
+
+
+
+dorm area active switch 3
+router ospf 1
+network 40.0.0.0 0.0.0.3 area 0
+network 40.0.0.8 0.0.0.3 area 0
+network 10.0.0.0 0.0.0.3 area 0
+network 10.0.0.8 0.0.0.3 area 0
+network 172.168.186.0 0.0.0.31 area 0
+network 172.168.184.96 0.0.0.31 area 0
+network 172.168.182.96 0.0.0.31 area 0
+network 172.168.182.128 0.0.0.31 area 0
+network 172.168.42.0 0.0.0.255 area 0
+network 172.168.32.0 0.0.7.255 area 0
+network 172.168.43.0 0.0.0.127 area 0
+
+
+dorm area standby switch 3
+router ospf 1
+network 10.0.0.4 0.0.0.3 area 0
+network 10.0.0.12 0.0.0.3 area 0
+network 40.0.0.4 0.0.0.3 area 0
+network 40.0.0.12 0.0.0.3 area 0
+network 172.168.186.0 0.0.0.31 area 0
+network 172.168.184.96 0.0.0.31 area 0
+network 172.168.182.96 0.0.0.31 area 0
+network 172.168.182.128 0.0.0.31 area 0
+network 172.168.42.0 0.0.0.255 area 0
+network 172.168.32.0 0.0.7.255 area 0
+network 172.168.43.0 0.0.0.127 area 0
+
+
+
+NOC Active switch
+router ospf 1
+network 10.10.0.8 0.0.0.3 area 1
+network 10.10.0.16 0.0.0.3 area 1
+network 172.168.182.64 0.0.0.31 area 0
+network 172.168.43.128 0.0.0.63 area 0
+network 172.168.183.128 0.0.0.127 area 0
+network 172.168.184.0 0.0.0.31 area 0
+network 10.0.0.8 0.0.0.3 area 0
+network 10.0.0.12 0.0.0.3 area 0
+network 20.0.0.0 0.0.0.3 area 0
+network 20.0.0.8 0.0.0.3 area 0
+network 10.10.0.24 0.0.0.3 area 0
+network 10.10.0.28 0.0.0.3 area 0
+
+
+NOC standby switch
+router ospf 1
+network 10.10.0.12 0.0.0.3 area 1
+network 10.10.0.20 0.0.0.3 area 1
+network 172.168.182.64 0.0.0.31 area 0
+network 172.168.43.128 0.0.0.63 area 0
+network 172.168.183.128 0.0.0.127 area 0
+network 172.168.184.0 0.0.0.31 area 0
+network 10.0.0.0 0.0.0.3 area 0
+network 10.0.0.4 0.0.0.3 area 0
+network 20.0.0.4 0.0.0.3 area 0
+network 20.0.0.12 0.0.0.3 area 0
+network 10.10.0.24 0.0.0.3 area 0
+network 10.10.0.28 0.0.0.3 area 0
+
+
+
+AREA 1 OSPF
+as 20
+router ospf 1
+network 10.10.0.8 0.0.0.3 area 1
+network 10.10.0.12 0.0.0.3 area 1
+network 10.10.0.0 0.0.0.3 area 1
+
+as 30
+router ospf 1
+network 10.10.0.16 0.0.0.3 area 1
+network 10.10.0.20 0.0.0.3 area 1
+network 10.10.0.4 0.0.0.3 area 1
+
+branch uni
+router ospf 1
+network 10.10.0.0 0.0.0.3 area 1
+network 10.10.0.4 0.0.0.3 area 1
+
+
+
+
+
