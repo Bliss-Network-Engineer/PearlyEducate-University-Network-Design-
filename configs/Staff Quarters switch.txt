@@ -1,0 +1,32 @@
+
+en
+conf t 
+vlan 15
+name StaffDorm
+ex
+vlan 94
+name DormAP
+ex
+vlan 44
+name DormCCTV
+ex
+vlan 203
+name DormVoIP
+ex
+int range fa0/1-fa0/10
+switchport mode access
+switchport access vlan 15
+switchport voice vlan 203
+ex
+int range fa0/21-fa0/24
+switchport mode access
+switchport access vlan 44
+ex
+int fa0/20
+switchport mode access
+switchport access vlan 94
+ex
+int gig0/1
+switchport mode trunk
+ex
+do wr

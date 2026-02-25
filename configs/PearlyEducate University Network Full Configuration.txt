@@ -1,0 +1,1130 @@
+==============================================================
+PearlyEducate University Campus Network Devices Configurations
+==============================================================
+
+======================
+Access Switches Config
+======================
+	===================
+	ACADEMIC BLOCK Area
+	===================
+	    ===============
+	     VLAN Creation
+	    ===============
+		en
+		conf t
+		vlan 10
+		name Staff
+		ex
+		vlan 20
+		name Students
+		ex
+		vlan 30
+		name Lab
+		ex
+		vlan 41
+		name AcademicCCTV
+		ex
+		Vlan 91
+		name AcademicAP
+		ex
+		vlan 201
+		name AcademicVoIP
+		ex
+
+	     =================
+	      PORT Assignment
+	     =================
+
+		int range fa0/1 - fa0/8
+		switchport mode access
+		switchport access vlan 10
+		switchport voice vlan 201
+		ex
+		int range fa0/9 - fa0/16
+		switchport mode access
+		switchport access vlan 20
+		ex
+		int range fa0/17 - fa0/20
+		switchport mode access
+		switchport access vlan 30
+		ex
+		int range fa0/23 - fa0/24
+		switchport mode access
+		switchport access vlan 41
+		ex
+		int fa0/21
+		switchport mode access
+		switchport voice vlan 201
+		ex
+		int fa0/22
+		switchport mode access
+		switchport access vlan 91
+		ex
+		int gig0/1
+		switchport mode trunk
+		ex
+
+      ==========================
+       ADMINISTRATIVE BLOCK Area
+      ==========================
+           =================
+             Library
+           ================
+	      ===============
+	       VLAN Creation
+	      ===============
+			en
+			conf t
+			vlan 50
+			name Library-Staff
+			ex
+			vlan 51
+			name Library-Users
+			ex
+			vlan 40
+			name LibraryCCTV
+			ex
+			vlan 202
+			name AdminVoIP
+			ex
+
+	     =================
+	      PORT Assignment
+	     =================
+			int range fa0/1-fa0/10
+			switchport mode access
+			switchport access vlan 50
+			ex
+			int range fa0/11-fa0/20
+			switchport mode access
+			switchport access vlan 51
+			ex
+			int range fa0/23-fa0/24
+			switchport mode access
+			switchport access vlan 40
+			ex
+			int fa0/21
+			switchport mode access
+			switchport voice vlan 202
+			ex
+			int fa0/22
+			switchport mode access
+			switchport access vlan 90
+			ex
+			int gig0/1
+			switchport mode trunk
+			ex
+			do wr
+
+           =========================================
+             Registry || Bursary || Student Affairs
+           =========================================
+	      ===============
+	       VLAN Creation
+	      ===============
+			en
+			conf t
+			vlan 60
+			name Registry-staff
+			ex
+			vlan 80
+			name Student-Affairs
+			ex
+			vlan 70
+			name Bursary-Staff
+			ex
+			vlan 40
+			name AdminCCTV
+			ex
+			vlan 202
+			name AdminVoIP
+			ex
+			Vlan 92
+			name AdminAP
+			ex
+
+	     =================
+	      PORT Assignment
+	     =================
+			int range fa0/1-fa0/20
+			switchport mode access
+			switchport access vlan 80
+			ex
+			int range fa0/23-fa0/24
+			switchport mode access
+			switchport access vlan 40
+			ex
+			int fa0/21
+			switchport mode access
+			switchport access vlan 80
+			switchport voice vlan 202
+			ex
+			int fa0/22
+			switchport mode access
+			switchport access vlan 92
+			ex
+			int gig0/1
+			switchport mode trunk
+			ex
+			do wr
+
+           =================
+             Security HQ
+           ================
+	      ===============
+	       VLAN Creation
+	      ===============
+			en
+			conf t 
+			vlan 202
+			name SecurityVoIP
+			ex
+			vlan 92
+			name SecurityAP
+			ex
+			vlan 40
+			name Security/CCTV\HQ
+			ex
+
+
+	        =================
+	         PORT Assignment
+	        =================
+			int range fa0/1-fa0/22
+			switchport mode access
+			switchport access vlan 40
+			ex
+			int fa0/23
+			switchport mode access
+			switchport access vlan 40
+			switchport voice vlan 202
+			ex
+			int fa0/24
+			switchport mode access
+			switchport access vlan 92
+			ex
+			int range gig0/0-gig0/1
+			switchport mode trunk
+			ex
+			do wr
+
+
+
+
+
+=========================
+Distribution Nodes Config
+=========================
+	       ======================
+		Academic Area Node 1 --Active
+	       ======================
+			==================
+			SVI/HSRP/IP Helper
+			==================
+				en
+				conf t
+
+				vlan 10
+				name Staff
+				ex
+				int vlan 10
+				ip address 172.168.160.2 255.255.240.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 10 ip 172.168.160.1
+				standby 10 priority 110
+				standby 10 preempt
+				ex
+
+				vlan 20
+				name Students
+				ex
+				int vlan 20
+				ip address 172.168.128.2 255.255.224.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 20 ip 172.168.128.1
+				standby 20 priority 110
+				standby 20 preempt
+				ex
+
+				vlan 41
+				name AcademicCCTV
+				ex
+				int vlan 41
+				ip address 172.168.182.34 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 41 ip 172.168.182.33
+				standby 41 priority 110
+				standby 41 preempt
+				ex
+
+				vlan 91
+				name AcademicAP
+				ex
+				int vlan 91
+				ip address 172.168.0.2 255.255.224.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 91 ip 172.168.0.1
+				standby 91 priority 110
+				standby 91 preempt
+				ex
+
+				vlan 201
+				name AcademicVOIP
+				ex
+				int vlan 201
+				ip address 172.168.184.34 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 201 ip 172.168.184.33
+				standby 201 priority 110
+				standby 201 preempt
+				ex
+
+
+               ======================
+		Academic Area Node 2 --Standby
+	       ======================
+				===================
+				SVI/HSRP/IP Helper
+				===================
+				en
+				conf t
+
+				vlan 10
+				name Staff
+				ex
+				int vlan 10
+				ip address 172.168.160.3 255.255.240.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 10 ip 172.168.160.1
+				standby 10 priority 90
+				standby 10 preempt
+				ex
+
+				vlan 20
+				name Students
+				ex
+				int vlan 20
+				ip address 172.168.128.3 255.255.224.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 20 ip 172.168.128.1
+				standby 20 priority 90
+				standby 20 preempt
+				ex
+
+				vlan 41
+				name AcademicCCTV
+				ex
+				int vlan 41
+				ip address 172.168.182.35 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 41 ip 172.168.182.33
+				standby 41 priority 90
+				standby 41 preempt
+				ex
+
+				vlan 91
+				name AcademicAP
+				ex
+				int vlan 91
+				ip address 172.168.0.3 255.255.224.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 91 ip 172.168.0.1
+				standby 91 priority 90
+				standby 91 preempt
+				ex
+
+				vlan 201
+				name AcademicVOIP
+				ex
+				int vlan 201
+				ip address 172.168.184.35 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 201 ip 172.168.184.33
+				standby 201 priority 90
+				standby 201 preempt
+				ex
+
+
+
+               ======================
+		Admin Block Node 1 --Active
+	       ======================
+			===================
+			SVI/HSRP/IP Helper
+			===================
+				vlan 50
+				name LibraryStaff
+				ex
+				int vlan 50
+				ip address 172.168.183.2 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 50 ip 172.168.183.1
+				standby 50 priority 110
+				standby 50 preempt
+				ex
+
+				vlan 51
+				name LibraryStudents
+				ex
+				int vlan 51
+				ip address 172.168.180.2 255.255.254.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 51 ip 172.168.180.1
+				standby 51 priority 110
+				standby 51 preempt
+				ex
+
+				vlan 60
+				name Registry
+				ex
+				int vlan 60
+				ip address 172.168.185.2 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 60 ip 172.168.185.1
+				standby 60 priority 110
+				standby 60 preempt
+				ex
+
+				vlan 70
+				name Bursary
+				ex
+				int vlan 70
+				ip address 172.168.184.130 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 70 ip 172.168.184.129
+				standby 70 priority 110
+				standby 70 preempt
+				ex
+
+				vlan 80
+				name StudentsAffairs
+				ex
+				int vlan 80
+				ip address 172.168.185.130 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 80 ip 172.168.185.129
+				standby 80 priority 110
+				standby 80 preempt
+				ex
+
+				vlan 92
+				name AdminAP
+				ex
+				int vlan 92
+				ip address 172.168.40.2 255.255.254.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 92 ip 172.168.40.1
+				standby 92 priority 110
+				standby 92 preempt
+				ex
+
+				vlan 202
+				name AdminVOIP
+				ex
+				int vlan 202
+				ip address 172.168.184.66 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 202 ip 172.168.184.65
+				standby 202 priority 110
+				standby 202 preempt
+				ex
+
+
+	       ======================
+		Admin Block Node 2 --Standby
+	       ======================
+			===================
+			SVI/HSRP/ IP Helper
+			===================
+				vlan 50
+				name LibraryStaff
+				ex
+				int vlan 50
+				ip address 172.168.183.3 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 50 ip 172.168.183.1
+				standby 50 priority 90
+				standby 50 preempt
+				ex
+
+				vlan 51
+				name LibraryStudents
+				ex
+				int vlan 51
+				ip address 172.168.180.3 255.255.254.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 51 ip 172.168.180.1
+				standby 51 priority 90
+				standby 51 preempt
+				ex
+
+				vlan 60
+				name Registry
+				ex
+				int vlan 60
+				ip address 172.168.185.3 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 60 ip 172.168.185.1
+				standby 60 priority 90
+				standby 60 preempt
+				ex
+
+				vlan 70
+				name Bursary
+				ex
+				int vlan 70
+				ip address 172.168.184.131 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 70 ip 172.168.184.129
+				standby 70 priority 90
+				standby 70 preempt
+				ex
+
+				vlan 80
+				name StudentsAffairs
+				ex
+				int vlan 80
+				ip address 172.168.185.131 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 80 ip 172.168.185.129
+				standby 80 priority 90
+				standby 80 preempt
+				ex
+
+				vlan 92
+				name AdminAP
+				ex
+				int vlan 92
+				ip address 172.168.40.3 255.255.254.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 92 ip 172.168.40.1
+				standby 92 priority 90
+				standby 92 preempt
+				ex
+
+				vlan 202
+				name AdminVOIP
+				ex
+				int vlan 202
+				ip address 172.168.184.67 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 202 ip 172.168.184.65
+				standby 202 priority 90
+				standby 202 preempt
+				ex
+
+	       ======================
+		Dorm Area Node 1 --Active
+	       ======================
+			===================
+			SVI/HSRP/IP Helper
+			===================
+				vlan 43
+				name HealthCenterCCCTV
+				ex
+				int vlan 43
+				ip address 172.168.182.98 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 43 ip 172.168.182.97
+				standby 43 priority 110
+				standby 43 preempt
+				ex
+
+				vlan 44
+				name DormCCCTV
+				ex
+				int vlan 44
+				ip address 172.168.182.130 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 44 ip 172.168.182.129
+				standby 44 priority 110
+				standby 44 preempt
+				ex
+
+				vlan 93
+				name HealthAP
+				ex
+				int vlan 93
+				ip address 172.168.42.2 255.255.255.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 93 ip 172.168.42.1
+				standby 93 priority 110
+				standby 93 preempt
+				ex
+
+				vlan 94
+				name DormAP
+				ex
+				int vlan 94
+				ip address 172.168.32.2 255.255.248.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 94 ip 172.168.32.1
+				standby 94 priority 110
+				standby 94 preempt
+				ex
+
+				vlan 95
+				name VisitorsAP
+				ex
+				int vlan 95
+				ip address 172.168.43.2 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 95 ip 172.168.43.1
+				standby 95 priority 110
+				standby 95 preempt
+				ex
+
+				vlan 203
+				name Health/DormVOIP
+				ex
+				int vlan 203
+				ip address 172.168.184.98 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 203 ip 172.168.184.97
+				standby 203 priority 110
+				standby 203 preempt
+				ex
+
+				vlan 105
+				name HealthCenter
+				ex
+				int vlan 105
+				ip address 172.168.186.2 255.255.255.224
+				standby version 2
+				standby 105 ip 172.168.186.1
+				standby 105 priority 110
+				standby 105 preempt
+				ex
+				//DHCP is local on layer3 switch
+
+
+	       ======================
+		Dorm Area Node 2 --Standby
+	       ======================
+			===================
+			SVI/HSRP/IP Helper
+			===================
+				vlan 43
+				name HealthCenterCCCTV
+				ex
+				int vlan 43
+				ip address 172.168.182.99 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 43 ip 172.168.182.97
+				standby 43 priority 90
+				standby 43 preempt
+				ex
+
+				vlan 44
+				name DormCCCTV
+				ex
+				int vlan 44
+				ip address 172.168.182.131 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 44 ip 172.168.182.129
+				standby 44 priority 90
+				standby 44 preempt
+				ex
+
+				vlan 93
+				name HealthAP
+				ex
+				int vlan 93
+				ip address 172.168.42.3 255.255.255.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 93 ip 172.168.42.1
+				standby 93 priority 90
+				standby 93 preempt
+				ex
+
+				vlan 94
+				name DormAP
+				ex
+				int vlan 94
+				ip address 172.168.32.3 255.255.248.0
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 94 ip 172.168.32.1
+				standby 94 priority 90
+				standby 94 preempt
+				ex
+
+				vlan 95
+				name VisitorsAP
+				ex
+				int vlan 95
+				ip address 172.168.43.3 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 95 ip 172.168.43.1
+				standby 95 priority 90
+				standby 95 preempt
+				ex
+
+				vlan 203
+				name Health/DormVOIP
+				ex
+				int vlan 203
+				ip address 172.168.184.99 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 203 ip 172.168.184.97
+				standby 203 priority 90
+				standby 203 preempt
+				ex
+
+				vlan 105
+				name HealthCenter
+				ex
+				int vlan 105
+				ip address 172.168.186.3 255.255.255.224
+				standby version 2
+				standby 105 ip 172.168.186.1
+				standby 105 priority 90
+				standby 105 preempt
+				ex
+				//DHCP is local on layer3 switch
+
+
+======================
+NOC/Core Nodes Config
+======================
+	       =========================
+		NOC/Core Node 1 --Active
+	       =========================
+			===================
+			SVI/HSRP/IP Helper
+			===================
+				vlan 42
+				name NOCCCTV
+				ex
+				int vlan 42
+				ip address 172.168.182.66 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 42 ip 172.168.182.65
+				standby 42 priority 110
+				standby 42 preempt
+				ex
+
+				vlan 90
+				name NOCAccesspoint
+				ex
+				int vlan 90
+				ip address 172.168.43.130 255.255.255.192
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 90 ip 172.168.43.129
+				standby 90 priority 110
+				standby 90 preempt
+				ex
+
+				vlan 100
+				name NOC
+				ex
+				int vlan 100
+				ip address 172.168.183.253 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 100 ip 172.168.183.252
+				standby 100 priority 110
+				standby 100 preempt
+				ex
+
+				vlan 200
+				name NOCVOIP
+				ex
+				int vlan 200
+				ip address 172.168.184.2 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 200 ip 172.168.184.1
+				standby 200 priority 110
+				standby 200 preempt
+				ex
+
+			=========
+			 Routing
+			=========
+				router ospf 1
+ 				network 172.168.182.64 0.0.0.31 area 0
+ 				network 172.168.43.128 0.0.0.63 area 0
+ 				network 172.168.183.128 0.0.0.127 area 0
+				network 172.168.184.0 0.0.0.31 area 0
+				network 10.0.0.8 0.0.0.3 area 0
+ 				network 10.0.0.12 0.0.0.3 area 0
+ 				network 20.0.0.0 0.0.0.3 area 0
+ 				network 20.0.0.8 0.0.0.3 area 0
+ 				network 10.10.0.24 0.0.0.3 area 0
+ 				network 10.10.0.28 0.0.0.3 area 0
+ 				network 10.10.0.8 0.0.0.3 area 1
+ 				network 10.10.0.16 0.0.0.3 area 1
+			//Static routes
+				ip route 172.169.0.0 255.255.0.0 10.10.0.9 
+				ip route 172.169.0.0 255.255.0.0 10.10.0.17 
+				ip route 0.0.0.0 0.0.0.0 10.10.0.17 
+				ip route 0.0.0.0 0.0.0.0 10.10.0.9 
+				ip route 172.168.182.0 255.255.255.224 10.0.0.10 
+				ip route 172.168.182.0 255.255.255.224 10.0.0.14 
+
+	       =========================
+		NOC/Core Node 2 -- Standby
+	       =========================
+			===================
+			SVI/HSRP/IP Helper
+			===================
+				vlan 42
+				name NOCCCTV
+				ex
+				int vlan 42
+				ip address 172.168.182.67 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby 42 ip 172.168.182.65
+				standby 42 priority 90
+				standby 42 preempt
+				ex
+
+				vlan 90
+				name NOCAccesspoint
+				ex
+				int vlan 90
+				ip address 172.168.43.130 255.255.255.192
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 90 ip 172.168.43.129
+				standby 90 priority 90
+				standby 90 preempt
+				ex
+
+				vlan 100
+				name NOC
+				ex
+				int vlan 100
+				ip address 172.168.183.254 255.255.255.128
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 100 ip 172.168.183.252
+				standby 100 priority 90
+				standby 100 preempt
+				ex
+
+				vlan 200
+				name NOCVOIP
+				ex
+				int vlan 200
+				ip address 172.168.184.3 255.255.255.224
+				ip helper-address 172.168.183.131
+				standby version 2
+				standby 200 ip 172.168.184.1
+				standby 200 priority 90
+				standby 200 preempt
+				ex
+			
+			===========
+			  Routing
+			===========
+				router ospf 1
+				network 10.10.0.12 0.0.0.3 area 1
+ 				network 10.10.0.20 0.0.0.3 area 1
+ 				network 172.168.182.64 0.0.0.31 area 0
+ 				network 172.168.43.128 0.0.0.63 area 0
+ 				network 172.168.183.128 0.0.0.127 area 0
+ 				network 172.168.184.0 0.0.0.31 area 0
+ 				network 10.0.0.0 0.0.0.3 area 0
+ 				network 10.0.0.4 0.0.0.3 area 0
+ 				network 20.0.0.4 0.0.0.3 area 0
+ 				network 20.0.0.12 0.0.0.3 area 0
+ 				network 10.10.0.24 0.0.0.3 area 0
+ 				network 10.10.0.28 0.0.0.3 area 0
+			//Static routes
+				ip route 172.169.0.0 255.255.0.0 10.10.0.21 
+				ip route 172.169.0.0 255.255.0.0 10.10.0.13 
+				ip route 0.0.0.0 0.0.0.0 10.10.0.13 
+				ip route 0.0.0.0 0.0.0.0 10.10.0.21 
+				ip route 172.168.182.0 255.255.255.224 10.0.0.2 
+				ip route 172.168.182.0 255.255.255.224 10.0.0.6 
+
+
+
+
+
+
+
+
+
+========================
+Telephony Routers Config
+========================
+	=========================
+	  Main Campus VOIP Router
+	=========================
+		Line Number config
+		===================
+			telephony-service
+			ip source-address 10.10.0.9 port 2000
+			max-ephone 20
+			max-dn 24
+			auto assign 1 to 100
+			ex
+			ephone-dn 1
+			number 100
+			ephone-dn 2
+			number 101
+			ephone-dn 3
+			number 102
+			ephone-dn 4
+			number 103
+			ephone-dn 5
+			number 104
+			ephone-dn 6
+			number 105
+			ephone-dn 7
+			number 106
+			ephone-dn 8
+			number 107
+			ephone-dn 9
+			number 108
+			ephone-dn 10
+			number 109
+		
+		Routing config
+		===================
+			interface FastEthernet0/0
+ 			ip address 10.10.0.25 255.255.255.252
+ 			ex
+			interface FastEthernet0/1
+			ip address 10.10.0.29 255.255.255.252
+			ex
+			router ospf 1
+ 			network 10.10.0.24 0.0.0.3 area 0
+			network 10.10.0.28 0.0.0.3 area 0
+			ex
+			ip route 10.11.0.0 255.255.255.252 10.10.0.26 
+			
+		Dial-Peer config
+		===================
+			dial-peer voice 200 voip
+			destination-pattern 1...
+ 			session target ipv4:10.11.0.1
+
+	=========================
+	Branch Campus VOIP Router
+	=========================
+		Line Number config
+		===================
+			telephony-service
+			ip source-address 10.11.0.1 port 2000
+			max-ephone 20
+			max-dn 24
+			auto assign 1 to 100
+			ex
+			ephone-dn 1
+			number 1000
+			ephone-dn 2
+			number 1001
+			ephone-dn 3
+			number 1002
+			ephone-dn 4
+			number 1003
+			ephone-dn 5
+			number 1004
+			ephone-dn 6
+			number 1005
+		
+		Routing config
+		===================
+			int fa0/1
+			ip address 10.11.0.1 255.255.255.252
+			ex
+			ip route 10.10.0.24 255.255.255.252 172.169.4.1 
+			ip route 0.0.0.0 0.0.0.0 10.11.0.2 
+			router ospf 1
+ 			network 10.11.0.0 0.0.0.3 area 0
+			
+		Dial-Peer config
+		===================
+			dial-peer voice 200 voip
+ 			destination-pattern 1..
+ 			session target ipv4:10.10.0.25
+						
+
+
+
+====================================
+Branch Router Config
+====================================
+
+DHCP Config
+===============
+ip dhcp excluded-address 172.169.1.1
+ip dhcp excluded-address 172.169.2.1
+ip dhcp excluded-address 172.169.3.1
+
+ip dhcp pool VoIP
+ network 172.169.1.0 255.255.255.0
+ default-router 172.169.1.1
+ option 150 ip 10.11.0.1
+ dns-server 172.168.183.130
+ip dhcp pool BlockA
+ network 172.169.2.0 255.255.255.0
+ default-router 172.169.2.1
+ dns-server 172.168.183.130
+ip dhcp pool BlockB
+ network 172.169.3.0 255.255.255.0
+ default-router 172.169.3.1
+ dns-server 172.168.183.130
+
+Router Interfaces Config
+=========================
+interface GigabitEthernet0/0
+ ip address 172.169.4.1 255.255.255.252
+ 
+interface GigabitEthernet0/2
+ ip address 10.11.0.2 255.255.255.252
+ 
+interface Serial0/3/0
+ ip address 10.10.0.6 255.255.255.252
+ clock rate 64000
+
+interface Serial0/3/1
+ ip address 10.10.0.2 255.255.255.252
+ clock rate 64000
+
+Routing Config
+===============
+router ospf 1
+ network 172.169.4.0 0.0.0.3 area 0
+ network 10.10.0.8 0.0.0.3 area 0
+ network 10.11.0.0 0.0.0.3 area 0
+ network 10.10.0.0 0.0.0.3 area 1
+ network 10.10.0.4 0.0.0.3 area 1
+//Static routes
+ip route 0.0.0.0 0.0.0.0 10.10.0.1 
+ip route 0.0.0.0 0.0.0.0 10.10.0.5 
+ip route 172.168.0.0 255.255.0.0 10.10.0.1 
+ip route 172.168.0.0 255.255.0.0 10.10.0.5 
+ip route 10.10.0.24 255.255.255.252 10.10.0.1 
+
+
+
+===========================
+Main Campus Routers Config
+===========================
+ Edge Router 1
+ ==============
+	Router Interfaces Config
+	=========================
+interface GigabitEthernet0/0
+ ip address 10.10.0.9 255.255.255.252
+ ip nat inside
+ 
+interface GigabitEthernet0/1
+ ip address 10.10.0.13 255.255.255.252
+ ip nat inside
+ 
+interface Serial0/0/0
+ ip address 50.0.0.6 255.255.255.252
+ ip nat outside
+
+interface Serial0/0/1
+ ip address 10.10.0.1 255.255.255.252
+ ip nat inside
+
+
+	Routing Config
+	===============
+router ospf 1
+ redistribute bgp 20 subnets 
+ network 10.10.0.8 0.0.0.3 area 1
+ network 10.10.0.12 0.0.0.3 area 1
+ network 10.10.0.0 0.0.0.3 area 1
+
+router bgp 20
+ neighbor 50.0.0.5 remote-as 300
+
+ip route 0.0.0.0 0.0.0.0 50.0.0.5 
+ip route 172.169.0.0 255.255.0.0 10.10.0.2 
+ip route 10.20.0.0 255.255.255.0 50.0.0.5
+
+
+	NAT Config
+	===============
+access-list 1 permit 172.168.0.0 0.0.255.255
+access-list 1 permit 172.169.0.0 0.0.255.255
+ip nat inside source list 1 interface Serial0/0/0 overload
+
+
+
+ Edge Router 2
+ ==============
+	Router Interfaces Config
+	=========================
+interface GigabitEthernet0/0
+ ip address 10.10.0.17 255.255.255.252
+ ip nat inside
+ 
+interface GigabitEthernet0/1
+ ip address 10.10.0.21 255.255.255.252
+ ip nat inside
+ 
+interface Serial0/0/0
+ ip address 50.0.0.2 255.255.255.252
+ ip nat outside
+ clock rate 64000
+
+interface Serial0/0/1
+ ip address 10.10.0.5 255.255.255.252
+ ip nat inside	
+
+
+	Routing Config
+	===============
+router ospf 1C
+ network 10.10.0.16 0.0.0.3 area 1
+ network 10.10.0.20 0.0.0.3 area 1
+ network 10.10.0.4 0.0.0.3 area 1
+
+router bgp 30
+ neighbor 50.0.0.1 remote-as 400
+
+ip route 0.0.0.0 0.0.0.0 50.0.0.1 
+ip route 172.169.0.0 255.255.0.0 10.10.0.6 
+
+
+	NAT Config
+	===============
+access-list 1 permit 172.168.0.0 0.0.255.255
+access-list 1 permit 172.169.0.0 0.0.255.255
+ip nat inside source list 1 interface Serial0/0/0 overload
+
+
+==================
+BGP Routing Config
+==================
